@@ -1,14 +1,19 @@
-.navbar{
-    font-family: sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.navbar-ell{
     padding: 8px;
     box-shadow: 0 2px 8px rgb(136 134 134 / 25%);;
     background-color: rgb(255, 255, 255);
 }
 
-.navbar-element{
+.navbar{
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-element {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -40,4 +45,26 @@
 .navbar-menu a{
     text-decoration: none;
     color: rgb(82, 81, 81);
+}
+
+.navbar-items{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.navbar-user{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.navbar-user img{
+    padding: 10px;
+    background-color: rgb(228, 225, 225);
+    border-radius: 50%;
+}
+
+.navbar-icons{
+    display: flex;
+    align-items: center;
 }

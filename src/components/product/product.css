@@ -1,6 +1,4 @@
 .product-page {
-  overflow: scroll;
-  height: 90vh;
   padding: 20px 40px;
   font-family: "Poppins", sans-serif;
   text-align: center;
@@ -115,4 +113,8 @@ input::placeholder {
 
 .product::-webkit-scrollbar{
   display: none;
+}
+
+.no-items{
+  padding: 30px;
 }

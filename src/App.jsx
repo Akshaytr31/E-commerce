@@ -7,6 +7,7 @@ import Cart from "./pages/CartPage";
 import ProductPage from "./pages/porductPage";
 import ItemPage from "./pages/itemPage";
 import { CartProvider } from "./context/CartContext";
+import Footer from "./components/footer/footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/products" element={<ProductPage />} />
           <Route path="/products/:id" element={<ItemPage />} />
         </Routes>
+        <Footer/>
       </Router>
     </CartProvider>
   );

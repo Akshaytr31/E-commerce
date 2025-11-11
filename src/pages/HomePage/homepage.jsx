@@ -31,6 +31,7 @@
 
 import React from 'react'
 import ProductPage from '../../components/product/product'
+import Footer from '../../components/footer/footer'
 
 function homepage() {
   return (
