@@ -1,0 +1,60 @@
+.homePage {
+  position: relative;
+  background-image: url('src/assets/homepage/pexels-cottonbro-10435965.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  font-family: sans-serif;
+  padding: 20px;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.homePage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: -1;
+}
+
+.homePage-title{
+    max-width: 400px;
+    color: rgb(255, 255, 255);
+    margin-top: 7%;
+    margin-left: 20px;
+
+}
+
+.homePage-title h1{
+    font-size: 43px;
+}
+
+.homePage-para{
+    max-width: 600px;
+    letter-spacing: 1.5px;
+    padding-bottom: 20px;
+}
+
+.homePage button{
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    background-color: rgb(53, 53, 53);
+    border-radius: 10px;
+}
+
+.homePage button:hover{
+    background-color: rgb(68, 68, 68);
+    transition: 0.5s;
+}
+
+.homePage button:active{
+    scale:0.97
+}
