@@ -2,8 +2,12 @@
   font-family: "Poppins", sans-serif;
   color: #333;
   line-height: 1.6;
-  height: 90vh;
   overflow: scroll;
+  margin-top: 60px;
+}
+
+.about-page::-webkit-scrollbar{
+  display: none;
 }
 
 .about-hero {

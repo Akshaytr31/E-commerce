@@ -41,10 +41,6 @@ function AboutPage() {
           </p>
         </div>
       </section>
-
-      <footer className="about-footer">
-        <p>© {new Date().getFullYear()} Gullies. All rights reserved.</p>
-      </footer>
     </div>
   );
 }

@@ -3,14 +3,14 @@ import "./pagination.css";
 
 function Pagination() {
   const images = [
-    "src/assets/pagination/balancing-1868051.jpg",
-    "src/assets/pagination/technology-6801334.jpg",
     "src/assets/pagination/woman-2593366.jpg",
+    "src/assets/pagination/WhatsApp Image 2025-11-12 at 4.25.01 PM.jpeg",
+    "src/assets/pagination/WhatsApp Image 2025-11-12 at 4.32.03 PM.jpeg"
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const duration = 5000; // time per slide (ms)
+  const duration = 5000;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,7 +22,7 @@ function Pagination() {
 
     const progressInterval = setInterval(() => {
       setProgress((prev) => (prev < 100 ? prev + 2.5 : 100));
-    }, duration / 40); // smooth progress bar
+    }, duration / 40); 
 
     return () => {
       clearInterval(interval);

@@ -1,9 +1,9 @@
 .cart-page {
   overflow: scroll;
-  height: 90vh;
   padding: 30px;
   background: #fff;
   font-family: "Poppins", sans-serif;
+  margin-top: 60px;
 }
 
 .cart-page h1 {
@@ -17,10 +17,7 @@
 .cart-items {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px; */
+  gap: 2px;
 }
 
 .cart-item {
@@ -29,13 +26,16 @@
   justify-content: space-between;
   border: 1px solid #eee;
   padding: 15px 20px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   background-color: #ffffff;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.cart-box{
+.cart-box:first-child{
   flex: 1;
+}
+.cart-box:last-child{
+  flex: 3;
 }
 
 .cart-item:hover {
@@ -64,13 +64,13 @@
 }
 
 .cart-item button {
-  background-color: #ff4d4f;
+  background-color: #ff191d;
   color: #fff;
   border: none;
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 20px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight:bold;
   transition: background 0.3s ease;
 }
 
@@ -78,7 +78,7 @@
   background-color: #d9363e;
 }
 
-.cart-page > button {
+.cart-elems > button {
   display: block;
   margin: 40px auto 0;
   background-color: #f1c40f;
@@ -92,7 +92,7 @@
   transition: all 0.3s ease;
 }
 
-.cart-page > button:hover {
+.cart-elems > button:hover {
   background-color: #d4ac0d;
   transform: scale(1.05);
 }
@@ -103,6 +103,12 @@
   font-size: 1.3rem;
   font-weight: bold;
   color: #222;
+}
+
+.cart-price{
+  display: flex;
+  align-items: center;
+  gap: 50px;
 }
 
 @media (max-width: 600px) {

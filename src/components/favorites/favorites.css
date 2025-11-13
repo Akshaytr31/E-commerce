@@ -1,0 +1,27 @@
+.favorites-page{
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: sans-serif;
+    margin-top: 70px;
+}
+
+.product-grid button{
+    padding: 5px 10px;
+    border: none;
+    color: rgb(231, 231, 231);
+    background-color: rgb(255, 44, 44);
+    font-weight: bold;
+    border-radius: 30px;
+}
+
+.product-grid button:hover{
+    background-color: red;
+}
+
+.product-grid button:active{
+    scale: 1.1px;
+}
+
+.favorites-page h2{
+    padding: 20px 20px 20px 0;
+}

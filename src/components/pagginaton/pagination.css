@@ -13,6 +13,12 @@
   /* box-shadow: 0 4px 12px rgba(0,0,0,0.3); */
 }
 
+.carousel-image-wrapper img{
+  box-sizing: border-box;
+  background-size: cover;
+  object-fit: cover;
+}
+
 .carousel-image {
   width: 100%;
   height: 100%;

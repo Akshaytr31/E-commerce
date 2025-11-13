@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {useCart} from "../../context/CartContext"
+import { useCart } from "../../context/CartContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./item.css";
 
 function Item() {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const {addToCart}=useCart()
+  const { addToCart, addToFavorites, cart, favorites } = useCart();
+
+  const isInCart = cart?.some((item) => item.id === Number(id));
+  const isInFavorites = favorites?.some((item) => item.id === Number(id));
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -25,13 +30,25 @@ function Item() {
     fetchItem();
   }, [id]);
 
-  const handleAddToCart=()=>{
-    addToCart(product)
-    alert("🛒 Item added to cart successfully!")
-  }
+  const handleAddToCart = () => {
+    if (isInCart) {
+      toast.warning("Item already in cart!", { position: "top-right" });
+      return;
+    }
+    addToCart(product);
+    toast.success("🛒 Item added to cart!", { position: "top-right", autoClose: 2000 });
+  };
+
+  const handleAddToFavorite = () => {
+    if (isInFavorites) {
+      toast.warning("Item already in favorites!", { position: "top-right" });
+      return;
+    }
+    addToFavorites(product);
+    toast.info("❤️ Added to favorites!", { position: "top-right", autoClose: 2000 });
+  };
 
   if (loading) return <div className="loading">Loading...</div>;
-
   if (!product) return <div className="error">Item not found.</div>;
 
   return (
@@ -42,12 +59,25 @@ function Item() {
           <h2>{product.title}</h2>
           <p className="price">₹{product.price}</p>
           <p className="desc">{product.description}</p>
-          <button
-           onClick={handleAddToCart}>
-            Add to Cart
-          </button>
+          <div className="item-buttons">
+            <button
+              onClick={handleAddToFavorite}
+              disabled={isInFavorites}
+              className={isInFavorites ? "disabled" : ""}
+            >
+              {isInFavorites ? "Alredy In Favorites" : "Add to Favorite"}
+            </button>
+            <button
+              onClick={handleAddToCart}
+              disabled={isInCart}
+              className={isInCart ? "disabled" : ""}
+            >
+              {isInCart ? "Already in Cart" : "Add to Cart"}
+            </button>
+          </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

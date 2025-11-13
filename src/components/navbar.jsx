@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function navbar() {
   const menuItems = [
     { name: "", path: "/" },
+    {name:"🩶 Favorites",path:"/Favorites"},
     { name: "🛒 Cart", path: "/cart" },
   ];
   return (

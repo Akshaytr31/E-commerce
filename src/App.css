@@ -3,6 +3,19 @@
   margin: 0;
 }
 
+.app-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100vw;
+  overflow: scroll;
+}
+
+.app-container::-webkit-scrollbar{
+  display: none;
+}
+
 body{
   margin: 0;
   overflow: hidden;

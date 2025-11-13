@@ -18,6 +18,7 @@ function ProductPage() {
     "Mens Fashion": "men's clothing",
     "Womens Fashion": "women's clothing",
     "Kids Fashion": "kids",
+    "jewelery" : "jewelery"
   };
 
   useEffect(() => {

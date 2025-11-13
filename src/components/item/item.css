@@ -5,6 +5,7 @@
   padding: 50px;
   font-family: sans-serif;
   color: gray;
+  margin-top: 60px;
 }
 
 .item-container {
@@ -46,4 +47,19 @@
 
 .item-details button:hover {
   background-color: #d4ac0d;
+}
+
+.item-details button:last-child{
+  background-color: rgb(3, 161, 3);
+  color: rgb(255, 255, 255);
+}
+
+.item-details button:last-child:hover{
+  background-color: green;
+}
+
+.item-buttons{
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }

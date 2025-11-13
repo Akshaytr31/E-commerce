@@ -8,9 +8,13 @@ import ProductPage from "./pages/porductPage";
 import ItemPage from "./pages/itemPage";
 import { CartProvider } from "./context/CartContext";
 import Footer from "./components/footer/footer";
+import Favorite from "./pages/favorite";
+import './App.css'
 
 function App() {
   return (
+    <div className="app-container">
+
     <CartProvider>
       <Router>
         <Navbar />
@@ -21,10 +25,12 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/products/:id" element={<ItemPage />} />
+          <Route path="/favorites" element={<Favorite />} />
         </Routes>
         <Footer/>
       </Router>
     </CartProvider>
+    </div>
   );
 }
 

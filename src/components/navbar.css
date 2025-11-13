@@ -2,10 +2,13 @@
     padding: 8px;
     box-shadow: 0 2px 8px rgb(136 134 134 / 25%);;
     background-color: rgb(255, 255, 255);
+    position: fixed;
+    width: 100vw;
+    z-index: 10;
 }
 
 .navbar{
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     font-family: sans-serif;
     display: flex;
