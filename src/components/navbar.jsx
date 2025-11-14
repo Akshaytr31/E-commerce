@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css";
-import { Link } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 
-function navbar() {
+function Navbar() {
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+    navigate("/signin");
+  };
+
   const menuItems = [
     { name: "", path: "/" },
-    {name:"🩶 Favorites",path:"/Favorites"},
+    { name: "🩶 Favorites", path: "/favorites" },
     { name: "🛒 Cart", path: "/cart" },
   ];
+
   return (
     <div className="navbar-ell">
       <div className="navbar">
         <div className="navbar-element">
           <div className="navbar-logo">
-            <Link to='/'>
+            <Link to="/">
               <img
                 src="src/assets/navbar/Gemini_Generated_Image_ez5a5sez5a5sez5a.png"
                 alt="logo"
@@ -22,6 +33,7 @@ function navbar() {
           </div>
           <div className="navbar-title">GULLIES</div>
         </div>
+
         <div className="navbar-icons">
           <ul className="navbar-menu">
             {menuItems.map((item, index) => (
@@ -30,16 +42,31 @@ function navbar() {
               </li>
             ))}
           </ul>
+
           <div className="navbar-user">
-            <div>
-              <img src="src/assets/navbar/user-svgrepo-com.svg" alt="" />
-            </div>
-            <span>User</span>
-          </div>
+            <img src="src/assets/navbar/user-svgrepo-com.svg" alt="user icon" />
+            {user ? (
+              <>
+                <span>{user.username}</span>
+                <button className="log-btn" onClick={handleLogout}>
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <>
+                <span>User</span>
+                <Link to="/signin">
+                  <button className="log-btn">
+                    Sign In
+                  </button>
+                </Link>
+              </>
+            )}
+          </div>  
         </div>
       </div>
     </div>
   );
 }
 
-export default navbar;
+export default Navbar;

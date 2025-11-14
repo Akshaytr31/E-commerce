@@ -18,7 +18,7 @@ function ProductPage() {
     "Mens Fashion": "men's clothing",
     "Womens Fashion": "women's clothing",
     "Kids Fashion": "kids",
-    "jewelery" : "jewelery"
+    jewelery: "jewelery",
   };
 
   useEffect(() => {
@@ -47,7 +47,8 @@ function ProductPage() {
 
     if (apiCategory !== "All") {
       results = results.filter(
-        (p) => p.category && p.category.toLowerCase() === apiCategory.toLowerCase()
+        (p) =>
+          p.category && p.category.toLowerCase() === apiCategory.toLowerCase()
       );
     }
 
@@ -84,7 +85,10 @@ function ProductPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <span>
-            <img src="src/assets/navbar/icons8-search-50.png" alt="search icon" />
+            <img
+              src="src/assets/navbar/icons8-search-50.png"
+              alt="search icon"
+            />
           </span>
         </div>
 
@@ -101,7 +105,7 @@ function ProductPage() {
         </div>
       </div>
 
-      <Pagination />
+      {selectedCategory==="All" && <Pagination/>}
 
       {filteredProducts.length === 0 ? (
         <div className="no-items">No items found for {selectedCategory}.</div>
@@ -115,7 +119,13 @@ function ProductPage() {
             >
               <img src={p.image} alt={p.title} />
               <h3>{p.title}</h3>
-              <p>₹{p.price}</p>
+              <div className="product-details">
+                <p>₹ {p.price}</p>
+                <p>⭐ {p.rating?.rate} </p>
+              </div>
+              <div className="product-count">
+                <p>Remaining {p.rating?.count} products</p>
+              </div>
             </div>
           ))}
         </div>

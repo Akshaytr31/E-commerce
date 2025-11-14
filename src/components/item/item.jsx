@@ -10,6 +10,7 @@ function Item() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const { addToCart, addToFavorites, cart, favorites } = useCart();
+  const [showDesc, setShowDesc] = useState(false);
 
   const isInCart = cart?.some((item) => item.id === Number(id));
   const isInFavorites = favorites?.some((item) => item.id === Number(id));
@@ -36,7 +37,10 @@ function Item() {
       return;
     }
     addToCart(product);
-    toast.success("🛒 Item added to cart!", { position: "top-right", autoClose: 2000 });
+    toast.success("🛒 Item added to cart!", {
+      position: "top-right",
+      autoClose: 2000,
+    });
   };
 
   const handleAddToFavorite = () => {
@@ -45,7 +49,10 @@ function Item() {
       return;
     }
     addToFavorites(product);
-    toast.info("❤️ Added to favorites!", { position: "top-right", autoClose: 2000 });
+    toast.info("❤️ Added to favorites!", {
+      position: "top-right",
+      autoClose: 2000,
+    });
   };
 
   if (loading) return <div className="loading">Loading...</div>;
@@ -58,7 +65,19 @@ function Item() {
         <div className="item-details">
           <h2>{product.title}</h2>
           <p className="price">₹{product.price}</p>
-          <p className="desc">{product.description}</p>
+          <div className="item-rating">
+            <p>Rating ⭐ {product.rating?.rate}</p>
+            <p>Remaining {product.rating?.count} products</p>
+          </div>
+          <div>
+            <button className="view-btn" onClick={() => setShowDesc(!showDesc)}>
+              {showDesc ? "Hide details" : "View more details..."}
+            </button>
+
+            <p className={`desc ${showDesc ? "show" : ""}`}>
+              {product.description}
+            </p>
+          </div>
           <div className="item-buttons">
             <button
               onClick={handleAddToFavorite}
