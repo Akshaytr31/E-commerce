@@ -160,6 +160,36 @@ p{
   font-weight: bold;
 }
 
+.main-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+}
+
+/* DOTS */
+.dots-container {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.active-dot {
+  background: #7c7c7c;
+  width: 15px;
+  border-radius: 10px;
+
+}
+
 .product-card {
   opacity: 0;
   transform: translateY(60px);

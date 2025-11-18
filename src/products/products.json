@@ -1,0 +1,335 @@
+[
+  {
+    "id": 1,
+    "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+    "price": 109.95,
+    "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop safely.",
+    "category": "men's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/61C273ftpUL._SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/81vFxPeWEjL._SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/7180nAH-KmL._SL1500_.jpg"
+    ],
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Black", "Blue", "Green"],
+    "stock": 45,
+    "rating": { "rate": 3.9, "count": 120 }
+  },
+  {
+    "id": 2,
+    "title": "Mens Casual Premium Slim Fit T-Shirts",
+    "price": 22.3,
+    "description": "Slim-fitting style, contrast raglan sleeves, breathable fabric.",
+    "category": "men's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/71KyflALdcL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/71Ia2f6gu2L._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/71LBvMY93YL._SX679_.jpg"
+    ],
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["White", "Black", "Red"],
+    "stock": 120,
+    "rating": { "rate": 4.1, "count": 259 }
+  },
+  {
+    "id": 3,
+    "title": "Mens Cotton Jacket",
+    "price": 55.99,
+    "description": "Great outerwear for spring and winter activities.",
+    "category": "men's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/61CIVMG34jL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/51phiodkjpL._SY741_.jpg",
+      "https://m.media-amazon.com/images/I/51mP5mqr5zL._SY741_.jpg"
+    ],
+    "sizes": ["M", "L", "XL"],
+    "colors": ["Brown", "Black"],
+    "stock": 32,
+    "rating": { "rate": 4.7, "count": 500 }
+  },
+  {
+    "id": 4,
+    "title": "Mens Casual Slim Fit",
+    "price": 15.99,
+    "description": "Casual slim fit shirt with stylish finish.",
+    "category": "men's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/81VjUlVxg3L._SY741_.jpg",
+      "https://m.media-amazon.com/images/I/61ikVvkBROL._SY741_.jpg",
+      "https://m.media-amazon.com/images/I/61GXo5Z2POL._SY741_.jpg"
+    ],
+    "sizes": ["S", "M", "L"],
+    "colors": ["Gray", "Black"],
+    "stock": 60,
+    "rating": { "rate": 2.1, "count": 430 }
+  },
+
+  {
+    "id": 5,
+    "title": "John Hardy Women's Legends Naga Gold & Silver Bracelet",
+    "price": 695,
+    "description": "Inspired by the mythical Naga, symbol of protection.",
+    "category": "jewelery",
+    "images": [
+      "https://m.media-amazon.com/images/I/61VOAiXOi8L._SY535_.jpg",
+      "https://m.media-amazon.com/images/I/81OwsqFAPXL._SY535_.jpg",
+      "https://m.media-amazon.com/images/I/81C-gKm-Q+L._SY535_.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Gold", "Silver"],
+    "stock": 12,
+    "rating": { "rate": 4.6, "count": 400 }
+  },
+  {
+    "id": 6,
+    "title": "Solid Gold Petite Micropave",
+    "price": 168,
+    "description": "Elegantly styled micropave ring.",
+    "category": "jewelery",
+    "images": [
+      "https://m.media-amazon.com/images/I/518flMAQ+QL._SY535_.jpg",
+      "https://m.media-amazon.com/images/I/61kybYHsARL._SY535_.jpg",
+      "https://m.media-amazon.com/images/I/51pGj3WvTuL._SY535_.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Gold"],
+    "stock": 50,
+    "rating": { "rate": 3.9, "count": 70 }
+  },
+  {
+    "id": 7,
+    "title": "White Gold Plated Princess Ring",
+    "price": 9.99,
+    "description": "Classic solitaire engagement ring.",
+    "category": "jewelery",
+    "images": [
+      "https://m.media-amazon.com/images/I/619c1xNZgUL._SY535_.jpg",
+      "https://m.media-amazon.com/images/I/61zIW3TE27L._SY535_.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Silver"],
+    "stock": 150,
+    "rating": { "rate": 3, "count": 400 }
+  },
+  {
+    "id": 8,
+    "title": "Pierced Owl Rose Gold Plated Stainless Steel Earrings",
+    "price": 10.99,
+    "description": "Double flared tunnel plug earrings.",
+    "category": "jewelery",
+    "images": [
+      "https://m.media-amazon.com/images/I/41wSZ4o8E2L.jpg",
+      "https://m.media-amazon.com/images/I/61NkluM-VsL._SY535_.jpg",
+      "https://m.media-amazon.com/images/I/61NkluM-VsL._SY535_.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Rose Gold"],
+    "stock": 100,
+    "rating": { "rate": 1.9, "count": 100 }
+  },
+
+  {
+    "id": 9,
+    "title": "WD 2TB Elements Portable External Hard Drive",
+    "price": 64,
+    "description": "Fast USB 3.0 portable storage for Windows.",
+    "category": "electronics",
+    "images": [
+      "https://m.media-amazon.com/images/I/71VDyTlZCwL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/91mQ3nivcnL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/51ykGO2NHaL.jpg"
+    ],
+    "sizes": ["1TB", "2TB", "4TB"],
+    "colors": ["Black"],
+    "stock": 75,
+    "rating": { "rate": 3.3, "count": 203 }
+  },
+
+  {
+    "id": 10,
+    "title": "SanDisk SSD PLUS 1TB Internal SSD - SATA III",
+    "price": 109,
+    "description": "Fast read/write performance for PCs.",
+    "category": "electronics",
+    "images": [
+      "https://m.media-amazon.com/images/I/31JxnU8h5LL._SX300_SY300_QL70_FMwebp_.jpg",
+      "https://m.media-amazon.com/images/I/61vX3Yn9mAL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/61mFVC8rScL._SX679_.jpg"
+    ],
+    "sizes": ["256GB", "512GB", "1TB"],
+    "colors": ["Black"],
+    "stock": 90,
+    "rating": { "rate": 2.9, "count": 470 }
+  },
+
+  {
+    "id": 11,
+    "title": "Silicon Power 256GB SSD 3D NAND",
+    "price": 109,
+    "description": "High-speed SSD with SLC caching.",
+    "category": "electronics",
+    "images": [
+      "https://m.media-amazon.com/images/I/611EKSIevUL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/61gS1ji6zKL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/71TCwDsRfQL._SX679_.jpg"
+    ],
+    "sizes": ["256GB", "512GB"],
+    "colors": ["Black"],
+    "stock": 110,
+    "rating": { "rate": 4.8, "count": 319 }
+  },
+
+  {
+    "id": 12,
+    "title": "WD 4TB Gaming Drive for PlayStation",
+    "price": 114,
+    "description": "Expand your PS4 storage capacity.",
+    "category": "electronics",
+    "images": [
+      "https://m.media-amazon.com/images/I/71UJwZ32VvL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/81ivsBz5j4L._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/71XQV9t1HBL._SX679_.jpg"
+    ],
+    "sizes": ["2TB", "4TB"],
+    "colors": ["Black", "Blue"],
+    "stock": 55,
+    "rating": { "rate": 4.8, "count": 400 }
+  },
+
+  {
+    "id": 13,
+    "title": "Acer 21.5-inch Full HD IPS Monitor",
+    "price": 599,
+    "description": "Ultra-thin IPS display with FreeSync.",
+    "category": "electronics",
+    "images": [
+      "https://m.media-amazon.com/images/I/81NwUyECc6L._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/71cqx1SWqcL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/81d-zPk-mTL._SX679_.jpg"
+    ],
+    "sizes": ["21.5-inch"],
+    "colors": ["Black"],
+    "stock": 40,
+    "rating": { "rate": 2.9, "count": 250 }
+  },
+
+  {
+    "id": 14,
+    "title": "Samsung 49-Inch Curved Gaming Monitor",
+    "price": 999.99,
+    "description": "144Hz QLED ultrawide gaming display.",
+    "category": "electronics",
+    "images": [
+      "https://m.media-amazon.com/images/I/71sO3OcrlNL._SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/81kL8Q3kKnL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/81ZSxIssCmL._SX679_.jpg"
+
+    ],
+    "sizes": ["49-inch"],
+    "colors": ["Black"],
+    "stock": 22,
+    "rating": { "rate": 2.2, "count": 140 }
+  },
+
+  {
+    "id": 15,
+    "title": "BIYLACLESEN Women's 3-in-1 Jacket",
+    "price": 56.99,
+    "description": "Warm fleece-lined 3-in-1 jacket.",
+    "category": "women's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/417ewYADSEL.jpg",
+      "https://m.media-amazon.com/images/I/71vKJFTy9xL._SX569_.jpg",
+      "https://m.media-amazon.com/images/I/71ib7A8FZeL._SX569_.jpg"
+    ],
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Pink", "Blue", "Black"],
+    "stock": 80,
+    "rating": { "rate": 2.6, "count": 235 }
+  },
+
+  {
+    "id": 16,
+    "title": "Lock and Love Women's Faux Leather Jacket",
+    "price": 29.95,
+    "description": "Hooded faux leather jacket with denim details.",
+    "category": "women's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/61+1JeXPkoL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/61CORKnjWyL._SY741_.jpg",
+      "https://m.media-amazon.com/images/I/81mAmJs6TpL._SY741_.jpg"
+    ],
+    "sizes": ["S", "M", "L"],
+    "colors": ["Black", "Brown"],
+    "stock": 95,
+    "rating": { "rate": 2.9, "count": 340 }
+  },
+
+  {
+    "id": 17,
+    "title": "Rain Jacket Women Windbreaker",
+    "price": 39.99,
+    "description": "Lightweight striped raincoat.",
+    "category": "women's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/612pCx4yUSL._SX569_.jpg",
+      "https://m.media-amazon.com/images/I/71P7LZ0UsUL._SX569_.jpg",
+      "https://m.media-amazon.com/images/I/81Y2zu2+30L._SX569_.jpg"
+    ],
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Yellow", "Blue"],
+    "stock": 140,
+    "rating": { "rate": 3.8, "count": 679 }
+  },
+
+  {
+    "id": 18,
+    "title": "MBJ Women's Solid Short Sleeve",
+    "price": 9.85,
+    "description": "Soft lightweight fabric with stretch.",
+    "category": "women's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/51L89EaASzL._SX569_.jpg",
+      "https://m.media-amazon.com/images/I/61gMDcz6jtL._SY741_.jpg",
+      "https://m.media-amazon.com/images/I/61EdCUkvEFL._SY741_.jpg"
+    ],
+    "sizes": ["S", "M", "L"],
+    "colors": ["Black", "Red"],
+    "stock": 210,
+    "rating": { "rate": 4.7, "count": 130 }
+  },
+
+  {
+    "id": 19,
+    "title": "Opna Women's Moisture Wicking Short Sleeve",
+    "price": 7.95,
+    "description": "Lightweight breathable sports fabric.",
+    "category": "women's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/51pn6vJNkbL._SY741_.jpg",
+      "https://m.media-amazon.com/images/I/41F7cwYaxHL._SX679_.jpg",
+      "https://m.media-amazon.com/images/I/6160uzGe4iL._SX679_.jpg"
+    ],
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Blue", "Black"],
+    "stock": 160,
+    "rating": { "rate": 4.5, "count": 146 }
+  },
+
+  {
+    "id": 20,
+    "title": "DANVOUY Women's Casual Tee",
+    "price": 12.99,
+    "description": "Soft cotton V-neck T-shirt.",
+    "category": "women's clothing",
+    "images": [
+      "https://m.media-amazon.com/images/I/71Uv-a00wdL._SY741_.jpg",
+      "https://m.media-amazon.com/images/I/71PFlkC37pL._SY741_.jpg",
+      "https://m.media-amazon.com/images/I/41ES7WnZQsL.jpg"
+    ],
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Black", "White"],
+    "stock": 145,
+    "rating": { "rate": 3.6, "count": 145 }
+  }
+]

@@ -10,6 +10,7 @@ function Navbar() {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("email");
     navigate("/signin");
   };
 
@@ -56,13 +57,11 @@ function Navbar() {
               <>
                 <span>User</span>
                 <Link to="/signin">
-                  <button className="log-btn">
-                    Sign In
-                  </button>
+                  <button className="log-btn">Sign In</button>
                 </Link>
               </>
             )}
-          </div>  
+          </div>
         </div>
       </div>
     </div>

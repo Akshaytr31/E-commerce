@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./product.css";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../pagginaton/pagination";
+import ProductData from "../../products/products.json";
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
@@ -10,6 +11,7 @@ function ProductPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeIndexes, setActiveIndexes] = useState({});
   const navigate = useNavigate();
 
   const categoryMap = {
@@ -22,22 +24,9 @@ function ProductPage() {
   };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        if (!response.ok) throw new Error("Failed to fetch products");
-        const data = await response.json();
-        setProducts(data);
-        setFilteredProducts(data);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
+    setProducts(ProductData);
+    setFilteredProducts(ProductData);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -105,7 +94,7 @@ function ProductPage() {
         </div>
       </div>
 
-      {selectedCategory==="All" && <Pagination/>}
+      {selectedCategory === "All" && <Pagination />}
 
       {filteredProducts.length === 0 ? (
         <div className="no-items">No items found for {selectedCategory}.</div>
@@ -117,11 +106,35 @@ function ProductPage() {
               className="product-card"
               onClick={() => navigate(`/products/${p.id}`)}
             >
-              <img src={p.image} alt={p.title} />
+              <img
+                src={p.images[activeIndexes[p.id] || 0]}
+                alt={p.title}
+                className="main-image"
+              />
+
+              {/* DOTS */}
+              <div
+                className="dots-container"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {p.images.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`dot ${
+                      (activeIndexes[p.id] || 0) === index ? "active-dot" : ""
+                    }`}
+                    onClick={() =>
+                      setActiveIndexes((prev) => ({ ...prev, [p.id]: index }))
+                    }
+                  ></span>
+                ))}
+              </div>
+
               <h3>{p.title}</h3>
+
               <div className="product-details">
                 <p>₹ {p.price}</p>
-                <p>⭐ {p.rating?.rate} </p>
+                <p>⭐ {p.rating?.rate}</p>
               </div>
               <div className="product-count">
                 <p>Remaining {p.rating?.count} products</p>

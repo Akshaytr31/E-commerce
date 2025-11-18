@@ -12,6 +12,8 @@ import Footer from "./components/footer/footer";
 import Favorite from "./pages/favorite";
 import Signin from "./components/signin/signin";
 import Login from "./components/login/login";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import "./App.css";
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
               <Route path="/favorites" element={<Favorite />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/admin/login" element={<AdminLogin/>}/>
+              <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
             </Routes>
             <Footer />
           </Router>
