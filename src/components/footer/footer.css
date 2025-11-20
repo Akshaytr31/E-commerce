@@ -49,25 +49,25 @@
 }
 
 .footer-section ul li a:hover {
-  color: #f4b400;
+  color: #4d4d4c;
 }
 
 .social-icons {
   display: flex;
   gap: 12px;
-  margin-left: -9px;
+  color: rgb(163, 162, 162);
 }
 
-.social-icons img {
-  width: 28px;
-  height: 28px;
-  filter: brightness(1) invert(0.5);
+.social-icons svg {
+  color: rgb(192 196 195);
+  margin-right: 15px;
+  cursor: pointer;
   transition: 0.3s;
 }
 
-.social-icons img:hover {
+.social-icons svg:hover {
+  color: #555353;
   transform: scale(1.1);
-  filter: brightness(1) invert(1);
 }
 
 .footer-bottom {

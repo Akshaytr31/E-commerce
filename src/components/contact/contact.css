@@ -1,0 +1,106 @@
+.contact-page {
+  margin-top:40px ;
+  height: 100vh;
+  padding: 40px;
+  text-align: center;
+  color: white;
+  background: #000;
+  font-family: sans-serif;
+}
+
+.contact-page .contact-container .contact-left .social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-page h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.contact-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-left,
+.contact-right {
+  background: #111;
+  padding: 25px;
+  border-radius: 8px;
+  width: 350px;
+}
+
+.contact-left h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.contact-left p {
+  color: #ccc;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.contact-details p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.social-icons {
+  margin-top: 15px;
+}
+
+.social-icons svg {
+  margin-right: 15px;
+  color: #ddd;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* .social-icons svg:hover {
+  color: white;
+  transform: scale(1.1);
+} */
+
+.contact-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-right input,
+.contact-right textarea {
+  width: unset;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #000;
+  color: #fff;
+}
+
+.contact-right button {
+  padding: 12px;
+  background: white;
+  color: black;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-right button:hover {
+  background: #ddd;
+}
+
+@media (max-width: 900px) {
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

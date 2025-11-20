@@ -176,7 +176,7 @@ p{
 
 .dot {
   width: 10px;
-  height: 10px;
+  height: 8px;
   background: #ddd;
   border-radius: 50%;
   cursor: pointer;
@@ -185,7 +185,7 @@ p{
 
 .active-dot {
   background: #7c7c7c;
-  width: 15px;
+  width: 23px;
   border-radius: 10px;
 
 }
@@ -193,7 +193,7 @@ p{
 .product-card {
   opacity: 0;
   transform: translateY(60px);
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.8s ease forwards;
 }
 
 @keyframes fadeIn {

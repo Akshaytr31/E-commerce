@@ -1,6 +1,5 @@
 import './favorites.css';
-import { useState,useEffect } from 'react';
-import { useCart } from "../../context/CartContext";
+import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function FavoritesPage() {
@@ -9,6 +8,7 @@ function FavoritesPage() {
 
   const email = localStorage.getItem("email");
 
+  // Fetch Favorites from Backend
   const fetchFavorites = async () => {
     try {
       const res = await fetch(`http://localhost:8000/favorites/${email}`);
@@ -23,12 +23,13 @@ function FavoritesPage() {
     fetchFavorites();
   }, []);
 
+  // Remove From Favorites
   const removeFromFavorites = async (id) => {
     try {
-      await fetch(`http://localhost:8000/favorites/${email}/${id}`, {
+      await fetch("http://localhost:8000/favorites/remove", {
         method: "POST",
-        headers:{"Content-type":"application/json"},
-        body: JSON.stringify({email:userEmail,id})
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, id }),
       });
 
       setFavorites((prev) => prev.filter((item) => item.id !== id));
@@ -43,7 +44,7 @@ function FavoritesPage() {
 
   return (
     <div className="favorites-page">
-      <h2>My favorites</h2>
+      <h2>My Favorites </h2>
 
       {favorites.length === 0 ? (
         <p>No favorite items yet!</p>
@@ -55,9 +56,13 @@ function FavoritesPage() {
               className="product-card"
               onClick={() => handleItemClick(p.id)}
             >
-              <img src={p.image} alt={p.title} />
+              <img src={p.images} alt={p.title} />
               <h3>{p.title}</h3>
-              <p>₹{p.price}</p>
+
+              <div className="product-details">
+                <p>₹ {p.price}</p>
+                <p>⭐ {p.rating?.rate}</p>
+              </div>
 
               <button
                 onClick={(e) => {

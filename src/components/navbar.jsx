@@ -7,11 +7,18 @@ function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const isAdmin = localStorage.getItem("adminToken"); // ⭐ check admin login
+
   const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("email");
-    navigate("/signin");
+    if (isAdmin) {
+      localStorage.removeItem("adminToken");
+      navigate("/admin/login");
+    } else {
+      setUser(null);
+      localStorage.removeItem("user");
+      localStorage.removeItem("email");
+      navigate("/signin");
+    }
   };
 
   const menuItems = [
@@ -37,16 +44,32 @@ function Navbar() {
 
         <div className="navbar-icons">
           <ul className="navbar-menu">
-            {menuItems.map((item, index) => (
-              <li key={index} className="navbar-items">
-                <Link to={item.path}>{item.name}</Link>
-              </li>
-            ))}
+            {!isAdmin &&
+              menuItems.map((item, index) => (
+                <li key={index} className="navbar-items">
+                  <Link to={item.path}>{item.name}</Link>
+                </li>
+              ))}
           </ul>
 
           <div className="navbar-user">
-            <img src="src/assets/navbar/user-svgrepo-com.svg" alt="user icon" />
-            {user ? (
+            <div className="user-avatar">
+              {isAdmin
+                ? "A"
+                : user
+                ? user.username.charAt(0).toUpperCase()
+                : "U"}
+            </div>
+
+            {/* ⭐ SHOW ADMIN IF LOGGED IN */}
+            {isAdmin ? (
+              <>
+                <span>Admin</span>
+                <button className="log-btn" onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
+            ) : user ? (
               <>
                 <span>{user.username}</span>
                 <button className="log-btn" onClick={handleLogout}>

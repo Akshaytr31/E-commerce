@@ -11,7 +11,7 @@
 }
 
 .about-hero {
-  background: linear-gradient(to right, #007bff, #00aaff);
+  background: linear-gradient(to right, #000000, #707070);
   color: white;
   text-align: center;
   padding: 80px 20px;
@@ -42,7 +42,7 @@
 }
 
 .about-text h2 {
-  color: #007bff;
+  color: #414242;
   font-size: 1.6rem;
   margin-bottom: 10px;
 }
