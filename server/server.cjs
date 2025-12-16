@@ -1,34 +1,32 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
-require("dotenv").config({ path: "./server/config.env" });
+const mongoose = require("mongoose");  
+require("dotenv").config({ path: "../server/connect.cjs" });
 
-// Correct import for user routes
-const userRoutes = require("./connect.cjs");
-const connectDB = userRoutes.connectDB;
+const { userRoutes, connectDB } = require("./connect.cjs");
+console.log("Backend running from:", __dirname);
 
-// Admin routes
 const adminRoutes = require("./routes/adminRoutes.cjs");
+const sellerRoutes = require("./routes/sellerRoutes.cjs")
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose
-  .connect(process.env.ATLAS_URI)
-  .then(() => console.log("Mongoose Connected!"))
+console.log("ATLAS_URI from env:", process.env.ATLAS_URI); 
+
+mongoose.connect(process.env.ATLAS_URI)
+  .then(() => console.log("Mongoose connected for Admin Models"))
   .catch((err) => console.log("Mongoose error:", err));
 
-// Connect MongoDB (Users collection)
 connectDB()
   .then(() => console.log("MongoDB Connected!"))
   .catch((err) => console.log("MongoDB error:", err));
 
-// USER ROUTES
 userRoutes(app);
 
-// ADMIN ROUTES
 app.use("/admin", adminRoutes);
+app.use("/seller",sellerRoutes)
 
 app.get("/", (req, res) => res.send("API running"));
 

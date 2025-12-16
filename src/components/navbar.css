@@ -8,7 +8,7 @@
 }
 
 .navbar{
-    max-width: 800px;
+    max-width: 950px;
     margin: 0 auto;
     font-family: sans-serif;
     display: flex;
@@ -53,6 +53,7 @@
 .navbar-items{
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .navbar-user{
@@ -100,4 +101,66 @@
   font-weight: bold;
   font-size: 18px;
   padding: 10px 12px 8px 12px;
+  cursor: pointer;
 }
+
+.mobile-menu-icon{
+  display:none;
+}
+.mobile-dropdown {
+    display: none;
+}
+
+@media screen and (max-width:900px) {
+    .navbar {
+        margin-inline: 30px;
+    }
+
+}
+
+/* Hide desktop items on small devices */
+@media(max-width:620px){
+  .desktop-nav{
+    display:none;
+  }
+  .mobile-menu-icon{
+    display:block;
+    font-size:22px;
+    cursor:pointer;
+    padding:8px;
+  }
+  .mobile-dropdown {
+    display: block;
+  }
+}
+
+
+
+
+.mobile-dropdown{
+  width:100%;
+  background:#fff;
+  position:absolute;
+  top:60px;
+  left:0;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);
+  padding:10px 0;
+  z-index:999;
+}
+
+.drop-item{
+  padding:12px 15px;
+  font-size:18px;
+}
+
+.drop-item a{
+    color: #000000;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.drop-item:hover{
+  background:#f2f2f2;
+}
+

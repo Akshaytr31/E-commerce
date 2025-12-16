@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import "./item.css";
 import ProductData from "../../products/products.json";
+import { useNavigate } from "react-router-dom";
 
 function Item() {
   const { id } = useParams();
@@ -17,28 +19,58 @@ function Item() {
   const [selectedSize, setSelectedSize] = useState("");
   const [exitClass, setExitClass] = useState("");
   const [enterClass, setEnterClass] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
-  // Fetch Product
-  // useEffect(() => {
-  //   const fetchItem = async () => {
-  //     try {
-  //       const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-  //       const data = await res.json();
-  //       setProduct(data);
-  //     } catch (err) {
-  //       console.error("Error fetching item:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  const navigate = useNavigate();
 
-  //   fetchItem();
-  // }, [id]);
+  const handleBuyNow = () => {
+    if (!userEmail) {
+      toast.error("Please log in first");
+      return;
+    }
+
+    if (!selectedSize) {
+      toast.error("Please select a size");
+      return;
+    }
+
+    navigate("/buy", {
+      state: {
+        product,
+        selectedSize,
+        qty: 1,
+        total: product.price,
+      },
+    });
+  };
 
   useEffect(() => {
-    const item = ProductData.find((p) => p.id == id);
-    setProduct(item);
-    setLoading(false);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  }, [id]);
+
+  useEffect(() => {
+    const loadItem = async () => {
+      try {
+        const localProduct = ProductData.find((p) => p.id == id);
+
+        const res = await fetch("http://localhost:8000/seller/products");
+        const dbProducts = await res.json();
+
+        const dbProduct = dbProducts.find((p) => p.id == id);
+
+        const finalProduct = dbProduct || localProduct;
+
+        setProduct(finalProduct);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
+
+    loadItem();
   }, [id]);
 
   const changeImage = (newIndex) => {
@@ -105,7 +137,7 @@ function Item() {
       body: JSON.stringify({
         email: userEmail,
         product,
-        selectedSize, 
+        selectedSize,
       }),
     });
 
@@ -142,7 +174,7 @@ function Item() {
           return;
         }
 
-        toast.warning("Removed from favorites");
+        toast.warning("Removed from favorites", { autoClose: 700 });
         setIsInFavorites(false);
       } catch (err) {
         console.error("Remove favorite error:", err);
@@ -166,13 +198,39 @@ function Item() {
         return;
       }
 
-      toast.info("Added to favorites!");
+      toast.info("Added to favorites!", { autoClose: 700 });
       setIsInFavorites(true);
     } catch (err) {
       console.error("Add favorite error:", err);
-      toast.error("Server error");
+      toast.error("Server error", { autoClose: 1000 });
     }
   };
+
+  useEffect(() => {
+    if (!product) return;
+
+    const email = localStorage.getItem("email");
+    if (!email) return;
+
+    const key = `recentlyViewed_${email}`;
+    let viewed = JSON.parse(localStorage.getItem(key)) || [];
+
+    // Remove if already exists
+    viewed = viewed.filter((item) => item.id !== product.id);
+
+    // Add at top
+    viewed.unshift({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.images[0],
+    });
+
+    // Limit to last 10 items
+    viewed = viewed.slice(0, 10);
+
+    localStorage.setItem(key, JSON.stringify(viewed));
+  }, [product]);
 
   if (loading) return <div className="loading">Loading...</div>;
   if (!product) return <div className="error">Item not found.</div>;
@@ -180,6 +238,20 @@ function Item() {
   return (
     <div className="item-page">
       <div className="item-container">
+        <div className="item-navigate-image">
+          {product.images.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt="thumbnail"
+              className={`navigate-thumb ${
+                activeIndex === index ? "active" : ""
+              }`}
+              onClick={() => changeImage(index)}
+            />
+          ))}
+        </div>
+
         <div className="item-images">
           <div className="item-image-wrapper">
             <img
@@ -187,7 +259,15 @@ function Item() {
               src={product.images[activeIndex]}
               alt={product.title}
               className={`main-item-image ${exitClass} ${enterClass}`}
+              onClick={() => setShowPopup(true)}
             />
+            <button onClick={handleFavoriteToggle} className="favorite-btn">
+              {isInFavorites ? (
+                <FaHeart color="red" size={22} />
+              ) : (
+                <FaRegHeart size={22} color="grey" />
+              )}
+            </button>
           </div>
           <div className="item-dots">
             {product.images.map((_, index) => (
@@ -205,7 +285,7 @@ function Item() {
 
           <div className="item-rating">
             <p>Rating ⭐ {product.rating?.rate}</p>
-            <p>Remaining {product.rating?.count} products</p>
+            <p>{product.rating?.count} Left</p>
           </div>
 
           <div className="item-sizes">
@@ -224,7 +304,36 @@ function Item() {
               ))}
             </div>
           </div>
-
+          <div className="item-policy">
+            <div className="item-policy-element">
+              <img
+                src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-returns._CB562506492_.png"
+                data-a-image-source="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-returns._CB562506492_.png"
+              ></img>
+              <span> 10 days Return & Exchange </span>
+            </div>
+            <div className="item-policy-element">
+              <img
+                src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/trust_icon_free_shipping_81px._CB562549966_.png"
+                data-a-image-source="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/trust_icon_free_shipping_81px._CB562549966_.png"
+              />
+              <span> Free Delivery </span>
+            </div>
+            <div className="item-policy-element">
+              <img
+                src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/Secure-payment._CB650126890_.png"
+                data-a-image-source="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/Secure-payment._CB650126890_.png"
+              />
+              <span> Secure Transaction </span>
+            </div>
+            <div className="item-policy-element">
+              <img
+                src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-top-brand._CB562506657_.png"
+                data-a-image-source="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-top-brand._CB562506657_.png"
+              />
+              <span> Top Brand </span>
+            </div>
+          </div>
           <button className="view-btn" onClick={() => setShowDesc(!showDesc)}>
             {showDesc ? "Hide details" : "View more details..."}
           </button>
@@ -232,12 +341,7 @@ function Item() {
           <p className={`desc ${showDesc ? "show" : ""}`}>
             {product.description}
           </p>
-
           <div className="item-buttons">
-            <button onClick={handleFavoriteToggle}>
-              {isInFavorites ? "Remove from Favorites" : "Add to Favorite"}
-            </button>
-
             <button
               onClick={handleAddToCart}
               disabled={isInCart}
@@ -245,9 +349,21 @@ function Item() {
             >
               {isInCart ? "Already in Cart" : "Add to Cart"}
             </button>
+            <button onClick={handleBuyNow}>Buy Now</button>
           </div>
         </div>
       </div>
+      {showPopup && (
+        <div className="image-popup" onClick={() => setShowPopup(false)}>
+          <img
+            src={product.images[activeIndex]}
+            alt="popup"
+            className="popup-image"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
       <ToastContainer />
     </div>
   );

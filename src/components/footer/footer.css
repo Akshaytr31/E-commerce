@@ -5,6 +5,7 @@
   text-align: center;
   margin-top: 50px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 999;
 }
 
 .footer-content {
@@ -26,6 +27,7 @@
 .footer-section h3 {
   color: #c5c4c3;
   margin-bottom: 15px;
+  text-align: left;
 }
 
 .footer-section p {

@@ -40,7 +40,7 @@ function Signin() {
   return (
     <div className="signin-page">
       <form className="signin-form" onSubmit={handleLogin}>
-        <h2>Sign In</h2>
+        <h2>Sign Up</h2>
 
         <input 
         type="text"
@@ -64,7 +64,7 @@ function Signin() {
           required
         />
 
-        <button type="submit">Sign in</button>
+        <button type="submit">Sign Up</button>
 
         {message && <p className="login-message">{message}</p>}
         <div>

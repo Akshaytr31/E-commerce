@@ -5,7 +5,8 @@ function Pagination() {
   const images = [
     "src/assets/pagination/woman-2593366.jpg",
     "src/assets/pagination/WhatsApp Image 2025-11-12 at 4.25.01 PM.jpeg",
-    "src/assets/pagination/WhatsApp Image 2025-11-12 at 4.32.03 PM.jpeg"
+    "src/assets/pagination/WhatsApp Image 2025-11-12 at 4.32.03 PM.jpeg",
+    "src/assets/pagination/"
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

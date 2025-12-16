@@ -1,0 +1,138 @@
+.add-product-container {
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
+  background: rgb(49, 48, 48);
+  color: white;
+  font-family: Arial;
+  width: 90%;
+  max-width: 700px;
+}
+.stock{
+  display: none !important;
+}
+
+.add-product-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-product-container label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 14px;
+}
+
+.dynamic-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* EACH field wrapper behaves like a grid child */
+.dynamic-fields > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input Styling */
+.add-product-container input,
+.add-product-container textarea,
+.add-product-container select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+  border: none;
+  margin-top: 5px;
+  background-color: white;
+  color: black;
+  box-sizing: border-box;
+}
+
+/* Make textarea full width */
+.add-product-container textarea {
+  grid-column: 1 / -1;
+  height: 120px;
+}
+
+.submit-btn {
+  width: 200px;
+  margin: 30px auto;
+  background: white;
+  color: black;
+  padding: 12px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  grid-column: 1 / -1; 
+}
+
+.submit-btn:hover {
+  opacity: 0.8;
+}
+
+/* OPEN ANIMATION */
+.add-product-animate {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
+  animation: expandProduct 0.5s ease forwards;
+}
+
+.custom-select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #888;
+  font-size: 14px;
+  background-color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-select {
+  appearance: none;        /* Remove default arrow (Chrome, Safari) */
+  -webkit-appearance: none;
+  -moz-appearance: none;   /* Remove default arrow (Firefox) */
+
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  width: 200px;
+  background-color: #fff;
+
+  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 12,0 6,8"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.custom-select option{
+  background-color: rgb(93, 92, 92);
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+}
+
+.custom-select:hover  {
+  border-color: #000;
+}
+
+.custom-select:focus {
+  border-color: dodgerblue;
+  box-shadow: 0 0 5px rgba(30,144,255,0.6);
+}
+
+
+
+@keyframes expandProduct {
+  to {
+    max-height: 2000px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

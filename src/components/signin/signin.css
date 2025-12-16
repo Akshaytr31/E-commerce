@@ -44,6 +44,8 @@
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  gap: 3px;
+
 }
 
 .signin-form button:hover {

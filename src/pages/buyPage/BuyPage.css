@@ -1,0 +1,146 @@
+.buy-container {
+  padding: 20px;
+  font-family: sans-serif;
+  color: gray;
+}
+
+.buy-card {
+  display: flex;
+  gap: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.buy-card img {
+  width: 37vh;
+  height: 35vh;
+  border-radius: 8px;
+}
+
+.buy-details h3 {
+  margin: 5px 0;
+  color: gray;
+}
+
+.confirm-btn {
+  background: green;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  width: 150px;
+  border: 0;
+  font-weight: bold;
+  border-radius: 20px;
+  margin-right: 20px;
+}
+
+.cancel-btn {
+  border-radius: 20px;
+  border: 0;
+  font-weight: bold;
+  background: gray;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  width: 150px;
+}
+
+
+.qty-box {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+.width{
+  margin-right: 10px !important;
+}
+
+.qty-btn {
+  padding: 5px;
+  width: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background: #ddd;
+  border-radius: 50px;
+}
+
+.qty-value {
+  font-size: 14px;
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+}
+
+.buy-layout{
+  display: flex;
+  gap: 20px;
+  margin-top: 100px;
+  min-height: 10vh;
+  font-family: sans-serif;
+  justify-content: space-around;
+}
+.offer-poster {
+  margin-top: 20px;
+  flex: 1;
+  width: 100%;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  padding: 25px;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(0);
+  transition: 0.3s;
+}
+
+.offer-poster:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+.offer-poster h3 {
+  margin-bottom: 10px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.offer-poster p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.offer-btnb {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.offer-btn:hover {
+  background: #ffecec;
+}
+
+.poster-img {
+  width: 100%;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+
+@media screen and (max-width:600px) {
+  .buy-card{
+    flex-direction: column;
+  }
+
+  .offer-poster{
+    display: none;
+  }
+}

@@ -43,6 +43,11 @@ function CartPage() {
     }
   };
 
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + item.price * (item.quantity || 1),
+    0
+  );
+
   // Clear entire cart
   const clearCart = async () => {
     const res = await fetch("http://localhost:8000/cart/clear", {
@@ -112,7 +117,48 @@ function CartPage() {
             </div>
           ))}
         </div>
-        <button onClick={clearCart}>Clear Cart</button>
+        <div className="cart-btns">
+          <button onClick={clearCart}>Clear Cart</button>
+          <button>Place Order</button>
+        </div>
+      </div>
+      <div className="cart-sticky">
+        <div className="cart-price-container">
+          <h3 className="price-title">Price Details</h3>
+
+          <div className="price-row">
+            <span>Total Items</span>
+            <span>{cart.length}</span>
+          </div>
+
+          <div className="price-row">
+            <span>Total Price</span>
+            <span>₹{totalPrice}</span>
+          </div>
+
+          <div className="price-row">
+            <span>Delivery</span>
+            <span>Free</span>
+          </div>
+
+          <hr />
+
+          <div className="price-total">
+            <span>Grand Total</span>
+            <span>₹{totalPrice}</span>
+          </div>
+        </div>
+        <div className="price-grarenty">
+          <div>
+            <img
+              src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/shield_b33c0c.svg"
+              alt=""
+            />
+          </div>
+          <span>
+            Safe and Secure Payments.Easy returns.100% Authentic products.
+          </span>
+        </div>
       </div>
     </div>
   );

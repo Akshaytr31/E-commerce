@@ -1,0 +1,254 @@
+.profile-container {
+  width: 100vw;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: sans-serif;
+  max-width: 900px;
+  display: flex;
+  gap: 30px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.profile-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.profile-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 3px;
+  flex: 1;
+  max-height: 75vh;
+  position: relative;
+}
+
+.profile-user {
+  width: 93%;
+  position: relative;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* background: linear-gradient(133deg, #b6ede4, #ffffff); */
+  background: rgb(45, 45, 45);
+  min-width: 250px;
+  border-radius: 10px;
+  color: rgb(218 218 218);
+  box-shadow:6px 6px 11px 0px rgb(0 0 0 / 10%);
+}
+
+.edit-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(7px);
+  z-index: 999;
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+
+.edit-modal{
+  position: absolute;
+  top: 15%;
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.user-icon {
+  padding: 13px 10px;
+  border: 1px solid grey;
+  border-radius: 50%;
+}
+
+.profile-edit {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.profile-close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.profile-box label {
+  font-weight: bold;
+  display: block;
+  margin-top: 12px;
+}
+
+.profile-box input {
+  width: 94%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  min-width: 300px;
+}
+.profile-box select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.save-btn {
+  margin-top: 50px;
+  width: 100%;
+  background: #272828;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  font-weight: bold;
+}
+
+.save-btn:hover {
+  background: #000000;
+}
+
+.seller-box {
+  padding: 20px;
+  background: rgb(45, 45, 45) ;
+  border-radius: 10px;
+  color: rgb(209, 209, 209);
+  box-shadow:6px 6px 11px 0px rgb(0 0 0 / 10%);;
+  flex: 1;
+}
+
+.seller-box h3 {
+  margin-bottom: 10px;
+}
+
+.seller-btn {
+  background: #ececec;
+  color: rgb(52, 51, 51);
+  padding: 12px 25px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+  transition: 0.5s ease;
+  width: 176px;
+  display: none;
+}
+
+.seller-btn:hover {
+  background: #1b1b1b;
+  color: white;
+}
+
+.seller-btn:active {
+  background-color: white;
+  color: black;
+}
+
+.seller-sell {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.seller-sell button {
+  padding: 20px;
+  border: none;
+  color: rgb(61, 61, 61);
+  font-size: 22px;
+  border-radius: 10px;
+  transition: 0.5s ease;
+  box-shadow:6px 6px 11px 0px rgb(0 0 0 / 10%);
+  font-weight: bold;
+  border: 1px solid rgb(222 222 222);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.seller-sell a{
+  text-decoration: none;
+}
+
+.seller-sell button:hover {
+  background-color: rgb(46, 47, 46);
+  color: white;
+}
+
+.seller-sell button:active {
+  transform: scale(1.02);
+}
+
+.request-btn {
+  padding: 10px;
+  font-weight: bold;
+  background-color: grey;
+  color: white;
+  border: none;
+}
+
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #1b1b1b;
+}
+
+
+@media screen and (max-width: 900px) {
+  .profile-container{
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .profile-user{
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .profile-container{
+    max-width: 350px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+
+  .profile-user{
+    width: 83%;
+  }
+}

@@ -1,0 +1,66 @@
+.request-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.seller-request {
+  min-height: 60vh;
+  width: 450px;
+  margin-top: 40px;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  animation: fade 0.4s ease-in;
+  font-family: sans-serif;
+}
+
+.seller-request h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.seller-form input,
+.seller-form textarea {
+  width: 94%;
+  margin: 8px 0;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.seller-form button {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.seller-form button:hover {
+  background: #1746b1;
+}
+
+.success-msg {
+  text-align: center;
+  margin-top: 10px;
+  color: #059669;
+  font-weight: bold;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

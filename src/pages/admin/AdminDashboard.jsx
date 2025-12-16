@@ -1,196 +1,251 @@
-import { useEffect, useState } from "react";
-import "./adminDashboard.css";
+import React, { useEffect, useState } from "react";
+import "./AdminDashboard.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 function AdminDashboard() {
-  const [message, setMessage] = useState("");
+  const [stats, setStats] = useState(null);
+  const [view, setView] = useState("");
+  const [tableData, setTableData] = useState([]);
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [tableLoading, setTableLoading] = useState(false);
 
-  // Product States
-  const [productId, setProductId] = useState("");
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [productImages, setProductImages] = useState("");
-  const [productSizes, setProductSizes] = useState([]);
-  const [productColors, setProductColors] = useState("");
-  const [productStock, setProductStock] = useState("");
-  const [productRating, setProductRating] = useState("");
-  const [productRatingCount, setProductRatingCount] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  // Fetch dashboard welcome message
+  const token = localStorage.getItem("adminToken");
+
   useEffect(() => {
-    fetch("http://localhost:8000/admin/dashboard", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("adminToken"),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  }, []);
+    async function getStats() {
+      try {
+        setStatsLoading(true);
+        const res = await fetch("http://localhost:8000/admin/stats", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        setStats(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setStatsLoading(false);
+      }
+    }
+    getStats();
+  }, [token]);
 
-  // ADD PRODUCT FUNCTION
-  const handleAddProduct = async (e) => {
-    e.preventDefault();
+  const loadData = async (type) => {
+    setView(type);
+    setTableLoading(true);
 
-    const productData = {
-      id: Number(productId),
-      title: productName,
-      price: Number(productPrice),
-      description,
-      category,
-      images: productImages.split(","),
-      sizes: productSizes,
-      colors: productColors.split(","),
-      stock: Number(productStock),
-      rating: {
-        rate: Number(productRating),
-        count: Number(productRatingCount),
-      },
-    };
+    try {
+      let url =
+        type === "users"
+          ? "/users"
+          : type === "sellers"
+          ? "/sellers"
+          : "/stats";
 
-    const response = await fetch("http://localhost:8000/admin/add-product", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("adminToken"),
-      },
-      body: JSON.stringify(productData),
-    });
+      const res = await fetch(`http://localhost:8000/admin${url}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-    const data = await response.json();
-    alert(data.message);
+      const data = await res.json();
+      setTableData(type === "pending" ? data.pendingRequests : data);
+    } catch {
+      alert("Failed to load data");
+    } finally {
+      setTableLoading(false);
+    }
+  };
+
+  const handleRequest = async (email, action) => {
+    try {
+      setTableLoading(true);
+      await fetch(`http://localhost:8000/admin/seller/${action}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email }),
+      });
+      loadData("pending");
+    } finally {
+      setTableLoading(false);
+    }
+  };
+
+  const blockAction = async (email, action) => {
+    try {
+      setTableLoading(true);
+      await fetch(`http://localhost:8000/admin/user/${action}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email }),
+      });
+      loadData(view);
+    } finally {
+      setTableLoading(false);
+    }
+  };
+
+  const openModal = (user) => {
+    setSelectedUser(user);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedUser(null);
+    setShowModal(false);
   };
 
   return (
-    <div className="admin-dashboard-container">
-      {/* WELCOME MESSAGE */}
-      <h3 className="welcome-msg">{message}</h3>
+    <div className="admin-container">
+      <h2>Admin Dashboard</h2>
 
-      <div className="admin-category">
-        <div className="admin-category-label">
-          Select category to post product{" "}
+      {statsLoading ? (
+        <p>Loading statistics...</p>
+      ) : (
+        stats && (
+          <div className="stats-box">
+            <div className="stat-card" onClick={() => loadData("users")}>
+              <h3>Total Users</h3>
+              <p>{stats.totalUsers}</p>
+            </div>
+
+            <div className="stat-card" onClick={() => loadData("sellers")}>
+              <h3>Total Sellers</h3>
+              <p>{stats.totalSellers}</p>
+            </div>
+
+            <div
+              className="stat-card pending"
+              onClick={() => loadData("pending")}
+            >
+              <h3>Seller Requests</h3>
+              <p>{stats.pendingRequests?.length || 0}</p>
+            </div>
+          </div>
+        )
+      )}
+
+      {view && (
+        <div className="table-wrapper">
+          <h3>{view.toUpperCase()}</h3>
+
+          {tableLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <table className="request-table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>GST</th>
+                  {view !== "pending" && <th>Status</th>}
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {tableData.map((u, i) => (
+                  <tr
+                    key={i}
+                    className="clickable-row"
+                    onClick={() => openModal(u)}
+                  >
+                    <td>{u.email}</td>
+                    <td>{u.gst || "-"}</td>
+
+                    {view !== "pending" && (
+                      <td>
+                        <FontAwesomeIcon
+                          icon={u.isBlocked ? faCircleXmark : faCircleCheck}
+                          className={
+                            u.isBlocked ? "blocked-icon" : "active-icon"
+                          }
+                        />
+                      </td>
+                    )}
+
+                    <td onClick={(e) => e.stopPropagation()}>
+                      {view === "pending" ? (
+                        <>
+                          <button
+                            className="approve"
+                            onClick={() =>
+                              handleRequest(u.email, "approve")
+                            }
+                          >
+                            Approve
+                          </button>
+                          <button
+                            className="reject"
+                            onClick={() =>
+                              handleRequest(u.email, "reject")
+                            }
+                          >
+                            Reject
+                          </button>
+                        </>
+                      ) : u.isBlocked ? (
+                        <button
+                          className="approve"
+                          onClick={() =>
+                            blockAction(u.email, "unblock")
+                          }
+                        >
+                          Unblock
+                        </button>
+                      ) : (
+                        <button
+                          className="reject"
+                          onClick={() =>
+                            blockAction(u.email, "block")
+                          }
+                        >
+                          Block
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
-        <div className="category-buttons">
-          <button
-            type="button"
-            className={category === "clothing" ? "active-cat" : ""}
-            onClick={() => setCategory("clothing")}
-          >
-            Clothing
-          </button>
+      )}
 
-          <button
-            type="button"
-            className={category === "electronics" ? "active-cat" : ""}
-            onClick={() => setCategory("electronics")}
-          >
-            Electronics
-          </button>
+      {/* MODAL */}
+      {showModal && selectedUser && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+            <h3>Details</h3>
 
-          <button
-            type="button"
-            className={category === "jewelery" ? "active-cat" : ""}
-            onClick={() => setCategory("jewelery")}
-          >
-            Jewellery
-          </button>
+            <p><b>Email:</b> {selectedUser.email}</p>
+            <p><b>Shop Name:</b> {selectedUser.shopName || "-"}</p>
+            <p><b>GST:</b> {selectedUser.gst || "-"}</p>
+            <p><b>Address:</b> {selectedUser.address || "-"}</p>
+            <p>
+              <b>Requested At:</b>{" "}
+              {selectedUser.sellerRequestedAt
+                ? new Date(
+                    selectedUser.sellerRequestedAt
+                  ).toLocaleString()
+                : "-"}
+            </p>
+
+            <button className="close-btn" onClick={closeModal}>
+              Close
+            </button>
+          </div>
         </div>
-      </div>
-      {/* STAT CARDS */}
-      <div className="dashboard-grid">
-        <div className="card">
-          <h4>Total Orders</h4>
-          <p className="card-number">54</p>
-        </div>
-
-        <div className="card">
-          <h4>Pending Orders</h4>
-          <p className="card-number">12</p>
-        </div>
-      </div>
-
-      {/* PRODUCT FORM */}
-      <div className="product-form-card">
-        <h3>Add New Product</h3>
-
-        <form className="product-form" onSubmit={handleAddProduct}>
-          <input
-            type="number"
-            placeholder="Product ID"
-            onChange={(e) => setProductId(e.target.value)}
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Product Title"
-            onChange={(e) => setProductName(e.target.value)}
-            required
-          />
-
-          <input
-            type="number"
-            placeholder="Price"
-            onChange={(e) => setProductPrice(e.target.value)}
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Category (men/women/kids)"
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          />
-
-          <textarea
-            placeholder="Product Description"
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          ></textarea>
-
-          <textarea
-            type="text"
-            placeholder="Images (comma separated URLs)"
-            onChange={(e) => setProductImages(e.target.value)}
-            required
-          ></textarea>
-          <input
-            type="text"
-            placeholder="Enter sizes (comma separated)"
-            onChange={(e) => setProductSizes(e.target.value.split(","))}
-          />
-
-          <input
-            type="text"
-            placeholder="Colors (Black,Blue,etc)"
-            onChange={(e) => setProductColors(e.target.value)}
-          />
-
-          <input
-            type="number"
-            placeholder="Stock"
-            onChange={(e) => setProductStock(e.target.value)}
-            required
-          />
-
-          <input
-            type="number"
-            step="0.1"
-            placeholder="Rating (rate)"
-            onChange={(e) => setProductRating(e.target.value)}
-            required
-          />
-
-          <input
-            type="number"
-            placeholder="Rating Count"
-            onChange={(e) => setProductRatingCount(e.target.value)}
-            required
-          />
-
-          <button type="submit">Add Product</button>
-        </form>
-      </div>
+      )}
     </div>
   );
 }

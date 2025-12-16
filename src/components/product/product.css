@@ -24,15 +24,15 @@
 .product-card h3 {
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: #626161;
   margin: 8px 0;
   line-height: 1.4;
   display: -webkit-box;
-  -webkit-line-clamp: 1; 
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 1em;        
+  height: 1em;
 }
 
 .product-card:hover {
@@ -45,16 +45,16 @@
   width: 100%;
 }
 
-.loading{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    letter-spacing: 1px;
-    font-family: sans-serif;
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  letter-spacing: 1px;
+  font-family: sans-serif;
 }
 
-.product-page-search{
+.product-page-search {
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
@@ -67,7 +67,7 @@
   padding-left: 10px;
 }
 
-input{
+.product-page-search input {
   width: 100%;
   max-width: 500px;
   min-width: 300px;
@@ -77,44 +77,43 @@ input{
   border-radius: 10px;
 }
 
-img{
+img {
   height: 20px;
   width: 20px;
   margin-left: 10px;
 }
 
-input:focus{
+input:focus {
   outline: 0;
 }
 
 input::placeholder {
-  color: #999;    
-  font-size: 15px; 
+  color: #999;
+  font-size: 15px;
 }
 
-
-.product-category{
+.product-category {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.product-category button{
+.product-category button {
   padding: 10px;
   background-color: rgb(255, 255, 255);
   border-radius: 20px;
   border: none;
   color: gray;
   font-weight: bold;
-  box-shadow: 3px 2px 6px 0px rgb(219 219 219);;
+  box-shadow: 3px 2px 6px 0px rgb(219 219 219);
   border: 0.5px solid gray;
   text-wrap: nowrap;
 }
 
-.product-category button:hover{
+.product-category button:hover {
   scale: 1.02;
   transition: ease 0.1s;
-  background-color:  rgb(223, 223, 223);
+  background-color: rgb(223, 223, 223);
 }
 
 .product-category button.active {
@@ -125,7 +124,7 @@ input::placeholder {
   transform: scale(1.05);
 }
 
-.product{
+.product {
   display: flex;
   align-items: center;
   gap: 40px;
@@ -134,29 +133,29 @@ input::placeholder {
   padding: 10px 0;
 }
 
-.product::-webkit-scrollbar{
+.product::-webkit-scrollbar {
   display: none;
 }
 
-.no-items{
+.no-items {
   padding: 30px;
 }
 
-p{
+p {
   margin: 5px;
 }
 
-.product-details{
+.product-details {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.product-count{
+.product-count {
   display: flex;
 }
 
-.product-card h3{
+.product-card h3 {
   font-weight: bold;
 }
 
@@ -187,18 +186,87 @@ p{
   background: #7c7c7c;
   width: 23px;
   border-radius: 10px;
-
-}
-
-.product-card {
-  opacity: 0;
-  transform: translateY(60px);
-  animation: fadeIn 0.8s ease forwards;
 }
 
 @keyframes fadeIn {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.slide-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: scale(1.05);
+}
+
+/* Pagination Wrapper */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 30px auto;
+  padding: 12px 0;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Buttons */
+.pagination-controls button {
+  padding: 10px 18px;
+  font-size: 15px;
+  border: none;
+  background: #ffffff;
+  color: #272727;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  border: 1px solid rgb(150, 149, 149);
+  font-weight: bold;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background: #2a2a2a;
+  color: white;
+}
+
+/* Disabled button */
+.pagination-controls button:disabled {
+  background: #b5b5b5;
+  color: #eee;
+  cursor: not-allowed;
+}
+
+/* Page text */
+.pagination-controls span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+.main-image {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Fade out */
+.fade-out {
+  opacity: 0.3;
+}
+
+/* Fade in */
+.fade-in {
+  opacity: 1;
+}
+
+@media screen and (max-width: 500px) {
+  .product-page {
+    padding-inline: 10px;
+  }
+
+  .product-page-search input {
+    min-width: 230px;
   }
 }

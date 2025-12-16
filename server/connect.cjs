@@ -1,6 +1,8 @@
 const { MongoClient } = require("mongodb");
 const bcrypt = require("bcryptjs");
 require("dotenv").config({ path: "./server/config.env" });
+const jwt = require("jsonwebtoken");
+console.log("Connecting to MongoDB using native driver...");
 
 const client = new MongoClient(process.env.ATLAS_URI);
 const dbName = "ecommerce";
@@ -42,6 +44,8 @@ function userRoutes(app) {
         password: hashedPassword,
         cart: [],
         favorites: [],
+        isSeller: false,
+        isBlocked: false,
       });
 
       res.status(201).json({ message: "Signup successful!" });
@@ -65,10 +69,75 @@ function userRoutes(app) {
       if (!isValid)
         return res.status(401).json({ error: "Invalid credentials" });
 
-      res.json({ message: "Login successful!", user });
+      let sellerToken = null;
+      console.log("isSellerrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", user.isSeller);
+      if (user.isSeller === true) {
+        sellerToken = jwt.sign(
+          { id: user._id, email: user.email },
+          "SELLER_SECRET_KEY",
+          { expiresIn: "7d" }
+        );
+      }
+
+      res.json({ message: "Login successful!", user, sellerToken });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Server error" });
+    }
+  });
+
+  // Google Login API
+  app.post("/auth/google-login", async (req, res) => {
+    try {
+      const { email, username, photo, firebaseUid } = req.body;
+
+      const db = await connectDB();
+      const users = db.collection("users");
+
+      let user = await users.findOne({ email });
+
+      // If user doesn't exist → create new one
+      if (!user) {
+        const newUser = {
+          email,
+          username,
+          photo,
+          firebaseUid,
+          isSeller: false,
+          isBlocked: false,
+          createdAt: new Date(),
+        };
+
+        const inserted = await users.insertOne(newUser);
+        user = { _id: inserted.insertedId, ...newUser };
+      }
+
+      // Create JWT token
+      const token = jwt.sign(
+        { id: user._id.toString(), email: user.email },
+        "USER_SECRET",
+        { expiresIn: "7d" }
+      );
+
+      // If seller, return seller token too
+      let sellerToken = null;
+      if (user.isSeller === true) {
+        sellerToken = jwt.sign(
+          { id: user._id.toString(), email: user.email },
+          "SELLER_SECRET_KEY",
+          { expiresIn: "7d" }
+        );
+      }
+
+      res.json({
+        message: "Google Login successful",
+        user,
+        token,
+        sellerToken,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "Google login failed" });
     }
   });
 
@@ -272,9 +341,40 @@ function userRoutes(app) {
       res.status(500).json({ error: "Server error" });
     }
   });
-};
+
+  app.post("/user/seller", async (req, res) => {
+    const { email, isSeller } = req.body;
+
+    try {
+      const db = await connectDB();
+      const users = db.collection("users");
+
+      await users.updateOne({ email }, { $set: { isSeller: isSeller } });
+
+      res.json({ message: "Seller status updated!", isSeller });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error" });
+    }
+  });
+
+  app.post("/user/update", async (req, res) => {
+    const { email, username, phone, gender } = req.body;
+
+    try {
+      const db = await connectDB();
+      const users = db.collection("users");
+
+      await users.updateOne({ email }, { $set: { username, phone, gender } });
+
+      res.json({ message: "Profile updated" });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to update profile" });
+    }
+  });
+}
 
 module.exports = {
   userRoutes,
-  connectDB
+  connectDB,
 };

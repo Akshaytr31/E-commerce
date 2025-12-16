@@ -3,8 +3,11 @@ import "./product.css";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../pagginaton/pagination";
 import ProductData from "../../products/products.json";
+import { motion } from "framer-motion";
+import Catogery from "../catogery/Catogery";
+import RecentlyViewed from "../resentlyViewed/ResentlyViewed";
 
-function ProductPage() {
+function Product() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,6 +16,12 @@ function ProductPage() {
   const [error, setError] = useState(null);
   const [activeIndexes, setActiveIndexes] = useState({});
   const navigate = useNavigate();
+  const [paused, setPaused] = useState(null);
+  const [fadeStates, setFadeStates] = useState({});
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const categoryMap = {
     All: "All",
@@ -24,9 +33,24 @@ function ProductPage() {
   };
 
   useEffect(() => {
-    setProducts(ProductData);
-    setFilteredProducts(ProductData);
-    setLoading(false);
+    const loadProducts = async () => {
+      try {
+        const localProducts = ProductData;
+
+        const res = await fetch("http://localhost:8000/seller/products");
+        const dbProducts = await res.json();
+
+        const combined = [...localProducts, ...dbProducts];
+
+        setProducts(combined);
+        setFilteredProducts(combined);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    loadProducts();
   }, []);
 
   useEffect(() => {
@@ -48,6 +72,7 @@ function ProductPage() {
     }
 
     setFilteredProducts(results);
+    setCurrentPage(1); // Reset pagination on filter/search change
   }, [searchTerm, selectedCategory, products]);
 
   if (loading)
@@ -63,8 +88,81 @@ function ProductPage() {
     setSelectedCategory(category);
   };
 
+  const handleCategoryFromGrid = (cat) => {
+    setSelectedCategory(cat);
+  };
+
+  // Auto carousel hover
+  const startCarousel = (productId, images) => {
+    let i = activeIndexes[productId] || 0;
+
+    const interval = setInterval(() => {
+      // Start fade-out
+      setFadeStates((prev) => ({ ...prev, [productId]: "fade-out" }));
+
+      setTimeout(() => {
+        // Change image
+        i = (i + 1) % images.length;
+
+        setActiveIndexes((prev) => ({
+          ...prev,
+          [productId]: i,
+        }));
+
+        // Fade-in new image
+        setFadeStates((prev) => ({ ...prev, [productId]: "fade-in" }));
+      }, 200);
+
+      // Reset fade state after animation
+      setTimeout(() => {
+        setFadeStates((prev) => ({ ...prev, [productId]: "" }));
+      }, 500);
+    }, 1500);
+
+    setPaused((prev) => ({
+      ...prev,
+      [productId]: interval,
+    }));
+  };
+
+  const stopCarousel = (productId) => {
+    clearInterval(paused?.[productId]);
+
+    setPaused((prev) => ({
+      ...prev,
+      [productId]: null,
+    }));
+  };
+
+  // Pagination calculations
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const handleNextPage = () => {
+    if (indexOfLastItem < filteredProducts.length) {
+      setCurrentPage((prev) => prev + 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
-    <div className="product-page">
+    <motion.div
+      className="product-page"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="product">
         <div className="product-page-search">
           <input
@@ -95,36 +193,47 @@ function ProductPage() {
       </div>
 
       {selectedCategory === "All" && <Pagination />}
+      {selectedCategory === "All" && (
+        <Catogery onCategorySelect={handleCategoryFromGrid} />
+      )}
 
-      {filteredProducts.length === 0 ? (
+      {currentProducts.length === 0 ? (
         <div className="no-items">No items found for {selectedCategory}.</div>
       ) : (
         <div className="product-grid">
-          {filteredProducts.map((p) => (
-            <div
+          {currentProducts.map((p, index) => (
+            <motion.div
               key={p.id}
-              className="product-card"
               onClick={() => navigate(`/products/${p.id}`)}
+              onMouseEnter={() => startCarousel(p.id, p.images)}
+              onMouseLeave={() => stopCarousel(p.id)}
+              className="product-card"
+              initial={{ opacity: 0, translateY: 30 }}
+              whileInView={{ opacity: 1, translateY: 0 }}
+              viewport={{ once: false, amount: 0.1 }}
+              transition={{
+                duration: 0.08,
+                ease: "easeOut",
+                delay: index * 0.07,
+              }}
             >
               <img
                 src={p.images[activeIndexes[p.id] || 0]}
                 alt={p.title}
-                className="main-image"
+                className={`main-image ${fadeStates[p.id] || ""}`}
               />
-
-              {/* DOTS */}
               <div
                 className="dots-container"
                 onClick={(e) => e.stopPropagation()}
               >
-                {p.images.map((_, index) => (
+                {p.images.map((_, i) => (
                   <span
-                    key={index}
+                    key={i}
                     className={`dot ${
-                      (activeIndexes[p.id] || 0) === index ? "active-dot" : ""
+                      (activeIndexes[p.id] || 0) === i ? "active-dot" : ""
                     }`}
                     onClick={() =>
-                      setActiveIndexes((prev) => ({ ...prev, [p.id]: index }))
+                      setActiveIndexes((prev) => ({ ...prev, [p.id]: i }))
                     }
                   ></span>
                 ))}
@@ -136,15 +245,37 @@ function ProductPage() {
                 <p>₹ {p.price}</p>
                 <p>⭐ {p.rating?.rate}</p>
               </div>
+
               <div className="product-count">
                 <p>Remaining {p.rating?.count} products</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}
-    </div>
+
+      {/* PAGINATION UI */}
+      {filteredProducts.length > itemsPerPage && (
+        <div className="pagination-controls">
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            Previous
+          </button>
+
+          <span>
+            Page {currentPage} of{" "}
+            {Math.ceil(filteredProducts.length / itemsPerPage)}
+          </span>
+
+          <button
+            onClick={handleNextPage}
+            disabled={indexOfLastItem >= filteredProducts.length}
+          >
+            Next
+          </button>
+        </div>
+      )}
+    </motion.div>
   );
 }
 
-export default ProductPage;
+export default Product;

@@ -1,13 +1,10 @@
 .admin-login-container {
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: linear-gradient(135deg, #000000, #ffffff); */
   padding: 20px;
-  padding-bottom: 300px;
   font-family: sans-serif;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .footer{

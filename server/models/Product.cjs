@@ -13,6 +13,10 @@ const productSchema = new mongoose.Schema({
   rating: {
     rate: Number,
     count: Number
+  },
+    ownerId: {
+    type: String,
+    required: true
   }
 });
 
