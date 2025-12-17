@@ -1,10 +1,58 @@
 .favorites-page {
   margin-inline: 20px;
   font-family: sans-serif;
-  margin-top: 70px;
   min-width: 100vh;
   background-color: rgb(255, 255, 255);
   color: gray;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 70px;
+}
+
+.favorite-grid{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.favorite-price{
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+}
+
+.favorite-card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgb(216, 216, 216);
+  border-radius: 5px;
+  padding: 10px;
+} 
+
+.favorite-card button{
+  border: 0;
+  padding: 10px;
+  background-color: rgb(188, 45, 45);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.favorite-container2{
+  display: flex;
+  flex-direction: column;
+}
+
+.favorite-image-container{
+  display: flex;
+  gap: 20px;
+}
+
+
+.favorite-image-container img{
+  min-width: 120px;
+  min-height: 120px;
 }
 
 .product-grid button {
@@ -43,4 +91,20 @@
     max-width: 900px;
     margin: 70px auto;
   }
+}
+
+@media screen and (max-width:700px) {
+  .favorite-image-container h3{
+    font-size: 14px;
+  }
+
+  .favorites-page{
+    min-width: unset;
+    padding-inline: 10px;
+  }
+
+  .favorite-price {
+    font-size: 16px;
+  }
+
 }

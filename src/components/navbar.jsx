@@ -88,7 +88,9 @@ function Navbar() {
             <div
               className="user-avatar"
               onClick={() =>
-                isAdmin ? navigate("/admin/dashboard") : requireLogin("/profile")
+                isAdmin
+                  ? navigate("/admin/dashboard")
+                  : requireLogin("/profile")
               }
             >
               {isAdmin
@@ -133,66 +135,63 @@ function Navbar() {
       </div>
 
       {/* MOBILE MENU DROPDOWN */}
-      {openMenu && (
-        <div className="mobile-dropdown">
-          {!isAdmin && (
-            <>
-              <div
-                className="drop-item"
-                onClick={() => {
-                  requireLogin("/favorites");
-                  setOpenMenu(false);
-                }}
-              >
-                🩶 Favorites
-              </div>
-
-              <div
-                className="drop-item"
-                onClick={() => {
-                  requireLogin("/cart");
-                  setOpenMenu(false);
-                }}
-              >
-                🛒 Cart
-              </div>
-
-              <div
-                className="drop-item"
-                onClick={() => {
-                  requireLogin("/profile");
-                  setOpenMenu(false);
-                }}
-              >
-                {user ? user.username : "User"}
-              </div>
-            </>
-          )}
-
-          {/* SIGN IN / LOG OUT */}
-          {user || isAdmin ? (
+      <div className={`mobile-dropdown ${openMenu ? "open" : ""}`}>
+        {!isAdmin && (
+          <>
             <div
               className="drop-item"
               onClick={() => {
-                handleLogout();
+                requireLogin("/favorites");
                 setOpenMenu(false);
               }}
             >
-              Log Out
+              Favorites
             </div>
-          ) : (
+
             <div
               className="drop-item"
               onClick={() => {
-                navigate("/signin");
+                requireLogin("/cart");
                 setOpenMenu(false);
               }}
             >
-              Sign In
+              Cart
             </div>
-          )}
-        </div>
-      )}
+
+            <div
+              className="drop-item"
+              onClick={() => {
+                requireLogin("/profile");
+                setOpenMenu(false);
+              }}
+            >
+              {user ? user.username : "User"}
+            </div>
+          </>
+        )}
+
+        {user || isAdmin ? (
+          <div
+            className="drop-item"
+            onClick={() => {
+              handleLogout();
+              setOpenMenu(false);
+            }}
+          >
+            Log Out
+          </div>
+        ) : (
+          <div
+            className="drop-item"
+            onClick={() => {
+              navigate("/signin");
+              setOpenMenu(false);
+            }}
+          >
+            Sign In
+          </div>
+        )}
+      </div>
     </div>
   );
 }

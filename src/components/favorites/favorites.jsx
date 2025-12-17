@@ -1,5 +1,5 @@
-import './favorites.css';
-import { useState, useEffect } from 'react';
+import "./favorites.css";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function FavoritesPage() {
@@ -49,19 +49,23 @@ function FavoritesPage() {
       {favorites.length === 0 ? (
         <p>No favorite items yet!</p>
       ) : (
-        <div className="product-grid">
+        <div className="favorite-grid">
           {favorites.map((p) => (
             <div
               key={p.id}
-              className="product-card"
+              className="favorite-card"
               onClick={() => handleItemClick(p.id)}
             >
-              <img src={p.images} alt={p.title} />
-              <h3>{p.title}</h3>
-
-              <div className="product-details">
-                <p>₹ {p.price}</p>
-                <p>⭐ {p.rating?.rate}</p>
+              <div className="favorite-container2">
+                <div className="favorite-image-container">
+                  <img src={p.images} alt={p.title} />
+                  <div>
+                    <h3>{p.title}</h3>
+                    <div className="favorite-price">
+                      <p>₹ {p.price}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <button
