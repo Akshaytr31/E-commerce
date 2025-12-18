@@ -156,8 +156,10 @@ function AdminDashboard() {
                 {tableData.map((u, i) => (
                   <tr
                     key={i}
-                    className="clickable-row"
-                    onClick={() => openModal(u)}
+                    className={view === "pending" ? "clickable-row" : ""}
+                    onClick={() => {
+                      if (view === "pending") openModal(u);
+                    }}
                   >
                     <td>{u.email}</td>
                     <td>{u.gst || "-"}</td>
@@ -178,17 +180,13 @@ function AdminDashboard() {
                         <>
                           <button
                             className="approve"
-                            onClick={() =>
-                              handleRequest(u.email, "approve")
-                            }
+                            onClick={() => handleRequest(u.email, "approve")}
                           >
                             Approve
                           </button>
                           <button
                             className="reject"
-                            onClick={() =>
-                              handleRequest(u.email, "reject")
-                            }
+                            onClick={() => handleRequest(u.email, "reject")}
                           >
                             Reject
                           </button>
@@ -196,18 +194,14 @@ function AdminDashboard() {
                       ) : u.isBlocked ? (
                         <button
                           className="approve"
-                          onClick={() =>
-                            blockAction(u.email, "unblock")
-                          }
+                          onClick={() => blockAction(u.email, "unblock")}
                         >
                           Unblock
                         </button>
                       ) : (
                         <button
                           className="reject"
-                          onClick={() =>
-                            blockAction(u.email, "block")
-                          }
+                          onClick={() => blockAction(u.email, "block")}
                         >
                           Block
                         </button>
@@ -227,16 +221,22 @@ function AdminDashboard() {
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
             <h3>Details</h3>
 
-            <p><b>Email:</b> {selectedUser.email}</p>
-            <p><b>Shop Name:</b> {selectedUser.shopName || "-"}</p>
-            <p><b>GST:</b> {selectedUser.gst || "-"}</p>
-            <p><b>Address:</b> {selectedUser.address || "-"}</p>
+            <p>
+              <b>Email:</b> {selectedUser.email}
+            </p>
+            <p>
+              <b>Shop Name:</b> {selectedUser.shopName || "-"}
+            </p>
+            <p>
+              <b>GST:</b> {selectedUser.gst || "-"}
+            </p>
+            <p>
+              <b>Address:</b> {selectedUser.address || "-"}
+            </p>
             <p>
               <b>Requested At:</b>{" "}
               {selectedUser.sellerRequestedAt
-                ? new Date(
-                    selectedUser.sellerRequestedAt
-                  ).toLocaleString()
+                ? new Date(selectedUser.sellerRequestedAt).toLocaleString()
                 : "-"}
             </p>
 

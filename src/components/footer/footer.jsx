@@ -24,9 +24,6 @@ function Footer() {
             <li>
               <a href="/contact">Contact</a>
             </li>
-            <li>
-              <a href="/cart">Cart</a>
-            </li>
           </ul>
         </div>
 

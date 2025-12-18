@@ -51,8 +51,8 @@
 
 
 .favorite-image-container img{
-  min-width: 120px;
-  min-height: 120px;
+  width: 120px;
+  height: 120px;
 }
 
 .product-grid button {
